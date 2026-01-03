@@ -1,3 +1,31 @@
+-- Decompiled with Medal in Seliware
+
+local v1 = game:GetService("ReplicatedStorage"):WaitForChild("resources"):WaitForChild("animations"):WaitForChild("fish")
+local v2 = require(script:WaitForChild("presents"))
+local v3 = require(script.Parent:WaitForChild("rarities"))
+local v4 = {
+    ["Desolate Deep"] = {
+        ["Trash"] = 22,
+        ["Common"] = 22,
+        ["Uncommon"] = 18,
+        ["Unusual"] = 17,
+        ["Rare"] = 14
+    },
+    ["Brine Pool"] = {
+        ["Trash"] = 29,
+        ["Common"] = 29,
+        ["Uncommon"] = 25,
+        ["Unusual"] = 23,
+        ["Rare"] = 15
+    },
+    ["Crystal Cove"] = {
+        ["Trash"] = 29,
+        ["Common"] = 29,
+        ["Uncommon"] = 25,
+        ["Unusual"] = 23,
+        ["Rare"] = 15
+    }
+}
 local v_u_5 = {
     ["Confetti Carp"] = {
         ["Icon"] = "rbxassetid://70474652215021",
@@ -24918,3 +24946,44 @@ v_u_5["Giant Moray"] = {
     ["From"] = "Second Sea",
     ["Worlds"] = { "Sea 1" }
 }
+v_u_5.Rarities = {}
+v_u_5.RarityColours = {}
+for _, v10 in v3.Rarities do
+    v_u_5.Rarities[v10.Order] = v10.Name
+    v_u_5.RarityColours[v10.Name] = v10.Color
+end
+function v_u_5.ToInteger(_, p11)
+    local v12 = p11.r * 255
+    local v13 = math.floor(v12) * 65536
+    local v14 = p11.g * 255
+    local v15 = v13 + math.floor(v14) * 256
+    local v16 = p11.b * 255
+    return v15 + math.floor(v16)
+end
+function v_u_5.ToHex(_, p17)
+    -- upvalues: (copy) v_u_5
+    local v18 = v_u_5:ToInteger(p17)
+    local v19 = {
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F"
+    }
+    local v20 = ""
+    while true do
+        local v21 = v18 % 16
+        local v22 = tostring(v21)
+        if v21 >= 10 then
+            v22 = v19[1 + v21 - 10]
+        end
+        local v23 = v18 / 16
+        v18 = math.floor(v23)
+        v20 = v20 .. v22
+        if v18 <= 0 then
+            return "#" .. string.reverse(v20)
+        end
+    end
+end
+return v_u_5\0
